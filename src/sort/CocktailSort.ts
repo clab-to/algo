@@ -6,20 +6,17 @@
 import { SortArgoTarget } from "./common/sortArgoTarget";
 
 const cocktailSort = (list: number[]): number[] => {
-  const targetList = structuredClone(list);
-
   const limit = {
-    upper: targetList.length,
+    upper: list.length,
     lower: 0,
   };
+
+  const targetList = structuredClone(list);
 
   const bubble = () => {
     let swapped = false;
     for (let i = limit.lower; i < limit.upper; i++) {
-      if (targetList[i] > targetList[i + 1]) {
-        swapped = true;
-        [targetList[i], targetList[i + 1]] = [targetList[i + 1], targetList[i]];
-      }
+      swapped = sortIfNeeded(i) || swapped;
     }
     limit.upper--;
     return swapped;
@@ -27,14 +24,19 @@ const cocktailSort = (list: number[]): number[] => {
 
   const downSideBubble = () => {
     let swapped = false;
-    for (let i = limit.upper; limit.lower < i; i--) {
-      if (targetList[i - 1] > targetList[i]) {
-        swapped = true;
-        [targetList[i], targetList[i - 1]] = [targetList[i - 1], targetList[i]];
-      }
+    for (let i = limit.upper - 1; limit.lower <= i; i--) {
+      swapped = sortIfNeeded(i) || swapped;
     }
     limit.lower++;
     return swapped;
+  };
+
+  const sortIfNeeded = (i: number): boolean => {
+    if (targetList[i] > targetList[i + 1]) {
+      [targetList[i], targetList[i + 1]] = [targetList[i + 1], targetList[i]];
+      return true;
+    }
+    return false;
   };
 
   const sortLoggingWrapper = (func: () => boolean) => {
