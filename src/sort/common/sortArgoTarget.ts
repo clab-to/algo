@@ -3,12 +3,28 @@ const base_list = [1, 3, 2, 4, 5];
 export class SortArgoTarget {
   list: number[];
 
-  constructor(list?: number[]) {
-    if (list === undefined) {
+  constructor(list_length?: number) {
+    if (list_length === undefined) {
       this.list = base_list;
     } else {
-      this.list = list;
+      this.list = this._shuffle(this._generateSequentialArray(list_length));
     }
+  }
+
+  _generateSequentialArray(arrayLength: number): number[] {
+    return [...Array(arrayLength)].map((_, i) => i + 1);
+  }
+
+  _shuffle(list: number[]): number[] {
+    const shuffled_list: number[] = [];
+
+    while (list.length > 0) {
+      const key = Math.floor(Math.random() * list.length);
+      shuffled_list.push(list[key]);
+      list.splice(key, 1);
+    }
+
+    return shuffled_list;
   }
 
   isSorted(): boolean {

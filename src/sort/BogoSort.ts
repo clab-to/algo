@@ -7,8 +7,6 @@
 
 import { SortArgoTarget } from "./common/sortArgoTarget";
 
-const target = new SortArgoTarget();
-
 const bogoSort = (list: number[]): number[] => {
   const result_list: number[] = [];
   while (list.length > 0) {
@@ -19,4 +17,5 @@ const bogoSort = (list: number[]): number[] => {
   return result_list;
 };
 
+const target = new SortArgoTarget(10);
 target.sort(bogoSort);
