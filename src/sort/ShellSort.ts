@@ -6,30 +6,28 @@
 import { SortArgoTarget } from "./common/sortArgoTarget";
 
 const shellSort = (list: number[]): number[] => {
+  let times = 0;
   const sortList = structuredClone(list);
 
   const calcGap = (gap: number) => {
-    return Math.floor(gap / 2);
+    return Math.floor(gap / 1.3);
   };
 
   let gap = calcGap(sortList.length);
-  console.log(gap);
 
-  const boundary = 1;
   while (gap >= 1) {
-    for (let index = gap + boundary; index < sortList.length; index += gap) {
+    for (let index = gap; index < sortList.length; index += gap) {
       const temporaryPickedNumber: { [name: string]: number } = {
         index: index,
         number: sortList[index],
       };
 
-      console.log(`index: ${index}, gap: ${gap}`);
-
       let target = index;
       while (
         target - gap >= 0 &&
-        sortList[target - gap] < temporaryPickedNumber.number
+        sortList[target - gap] > temporaryPickedNumber.number
       ) {
+        times++;
         sortList[target] = sortList[target - gap];
         target -= gap;
       }
@@ -40,6 +38,7 @@ const shellSort = (list: number[]): number[] => {
     gap = calcGap(gap);
   }
 
+  console.log(`times: ${times}`);
   return sortList;
 };
 
