@@ -1,3 +1,9 @@
+/**
+ * カウントソート
+ * 数値の登場回数を数えて、数値の位置の参照として利用するオブジェクトを作成。
+ * 最後に位置参照用オブジェクトを参照しながらソートを実施。
+ */
+
 import { SortArgoTarget } from "./common/sortArgoTarget";
 
 const countSort = (list: number[]): number[] => {
